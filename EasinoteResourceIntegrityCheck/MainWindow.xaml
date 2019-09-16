@@ -1,0 +1,109 @@
+﻿<Window x:Class="EasinoteResourceIntegrityCheck.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:EasinoteResourceIntegrityCheck"
+        mc:Ignorable="d"
+        Title="EN5资源完整性校验" Height="600" Width="900" WindowStartupLocation="CenterScreen" x:Name="TheMainWindow">
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+        <DataTemplate x:Key="DataTemplate.ErrorResource" DataType="local:ErrorResourceInfo">
+            <Grid Margin="0 2" x:Name="ContentGrid">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="200"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Button x:Name="ErrorResourceLinkButton" Content="{Binding Path=ResourceDictionaryFileName}" Style="{StaticResource Style.LinkedButton}" 
+                        Click="ErrorResourceLinkButton_OnClick" Cursor="Hand" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <TextBlock Grid.Column="1" Text="{Binding Path=ErrorText}" VerticalAlignment="Center" TextTrimming="CharacterEllipsis"/>
+            </Grid>
+        </DataTemplate>
+        <Style x:Key="Style.ListBoxItem.ErrorResource" TargetType="ListBoxItem">
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"></Setter>
+            <Setter Property="Padding" Value="0"></Setter>
+            <Setter Property="Height" Value="28"></Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <Grid>
+                            <!--<Grid.ContextMenu>
+                                <ContextMenu Padding="-1 0" Margin="0" BorderThickness="0">
+                                    <MenuItem x:Name="FixErrorMenuItem" Header="复制标题" Click="FixErrorMenuItem_OnClick" Height="30"/>
+                                </ContextMenu>
+                            </Grid.ContextMenu>-->
+                            <Border x:Name="RootBorder" BorderBrush="#EEEEEE" BorderThickness="0 0 0 1"/>
+                            <ContentPresenter/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="RootBorder" Property="Background" Value="#EFF5EC"/>
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="RootBorder" Property="Background" Value="#FABCD9AD"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#FAFAFA"/>
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#EFF5EC"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="Style.ListBox" TargetType="ListBox">
+            <Setter Property="BorderBrush" Value="LightGray"/>
+            <Setter Property="SnapsToDevicePixels" Value="true" />
+            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />
+            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+            <Setter Property="ScrollViewer.CanContentScroll" Value="true" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="ItemContainerStyle" Value="{StaticResource Style.ListBoxItem.ErrorResource}"/>
+            <Setter Property="ItemTemplate" Value="{StaticResource DataTemplate.ErrorResource}"/>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="30">
+            <StackPanel Orientation="Horizontal" Height="30" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 0 0 10">
+                <TextBlock TextWrapping="NoWrap" VerticalAlignment="Center" Text="文件名筛选："/>
+                <TextBox x:Name="FilterPatternTextBox" Text=".JiaoPei.xaml,_Training.xaml" VerticalContentAlignment="Center" MinWidth="200"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Height="30" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <TextBox x:Name="ProjectFolderTextBox" TextWrapping="NoWrap" MinWidth="300" MaxWidth="500" VerticalContentAlignment="Center"
+                         Text="F:\Gitlab\easinote_Training"/>
+                <Button Content="开始校验" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="20,5" Margin="2 0 0 0"
+                        Click="CheckButton_OnClick" Background="Transparent" x:Name="CheckButton"/>
+            </StackPanel>
+        </StackPanel>
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="200"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Text="资源文件" FontWeight="Bold" Margin="2 0 0 0" FontSize="14" VerticalAlignment="Center"/>
+                <TextBlock Grid.Column="1" Text="错误信息提示" FontWeight="Bold" FontSize="14" VerticalAlignment="Center"/>
+            </Grid>
+           <Grid Grid.Row="1">
+                <ListBox x:Name="ErrorListBox" Style="{StaticResource Style.ListBox}" ItemsSource="{Binding ElementName=TheMainWindow,Path=ErrorResourceInfos}"/>
+               <Button x:Name="FixButton" Content="一键修复" HorizontalAlignment="Center" 
+                       VerticalAlignment="Bottom" Background="Transparent" Margin="40" Padding="20,10" Click="FixButton_OnClick"/>
+
+                <local:CircleLoading IsActive="{Binding ElementName=TheMainWindow,Path=IsSearching}" LoadingSize="Size32" Height="32" Width="32"
+                                    Visibility="{Binding ElementName=TheMainWindow,Path=IsSearching,Converter={StaticResource BooleanToVisibilityConverter} }"/>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>
