@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29230.47
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasinoteResourceIntegrityCheck", "EasinoteResourceIntegrityCheck\EasinoteResourceIntegrityCheck.csproj", "{AD4EF6A0-03BD-4882-9727-A8524DA5ADF5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResourceIntegrityCheck", "EasinoteResourceIntegrityCheck\ResourceIntegrityCheck.csproj", "{AD4EF6A0-03BD-4882-9727-A8524DA5ADF5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

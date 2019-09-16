@@ -9,7 +9,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using Path = System.IO.Path;
 
-namespace EasinoteResourceIntegrityCheck
+namespace ResourceIntegrityCheck
 {
     /// <summary>
     /// MainWindow.xaml 的交互逻辑

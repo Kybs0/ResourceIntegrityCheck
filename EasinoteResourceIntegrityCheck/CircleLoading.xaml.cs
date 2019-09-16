@@ -5,7 +5,7 @@ using System.Windows.Media;
 using System.Windows.Controls;
 using System.Windows.Media.Animation;
 
-namespace EasinoteResourceIntegrityCheck
+namespace ResourceIntegrityCheck
 {
     /// <summary>
     /// CircleLoading.xaml 的交互逻辑

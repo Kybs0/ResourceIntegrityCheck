@@ -1,7 +1,7 @@
-﻿<UserControl x:Class="EasinoteResourceIntegrityCheck.CircleLoading"
+﻿<UserControl x:Class="ResourceIntegrityCheck.CircleLoading"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:controls="clr-namespace:EasinoteResourceIntegrityCheck"
+             xmlns:controls="clr-namespace:ResourceIntegrityCheck"
              x:Name="TheCircleLoading">
     <UserControl.Resources>
         <Storyboard x:Key="Storyboard.Circle" RepeatBehavior="Forever">
